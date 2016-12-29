@@ -1,10 +1,16 @@
 {
-	"name": "chat-app",
-	"version": "0.0.1",
-	"dependencies": {
-    	"bootstrap": "3.2.0"
-	},
-	"resolutions": {
-    	"bootstrap": "3.2.0"
-	}
+  "name": "MEAN Template",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.5.6",
+    "angular-route": "1.5.6",
+    "bootstrap": "3.2.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.5"
+  },
+  "resolutions": {
+    "bootstrap": "3.2.0",
+    "angular": "1.5.6"
+  }
 }

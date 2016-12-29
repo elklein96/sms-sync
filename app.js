@@ -1,20 +1,26 @@
 var express = require('express');
 var http = require('http');
-var path = require('path');
+var bodyParser  = require('body-parser');
 
 var app = express();
-var server = http.createServer(app);
 
-var routes = require('./routes/routes');
+app.set('port', process.env.PORT || 3000);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/app", express.static(__dirname + "/public/app"));
+app.use("/img", express.static(__dirname + "/public/app/img"));
+app.use("/css", express.static(__dirname + "/public/css"));
+app.use("/bower_components", express.static(__dirname + "/public/bower_components"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
-app.get('/', routes.index);
-
-server.listen(process.env.PORT || 3000, function() {
-  console.log('Express server listening on port ' + server.address().port);
+app.get('*', function(req, res) {
+    res.sendFile(__dirname+'/public/index.html');
 });
 
-exports.server = server;
+http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
+
+module.exports = app;

@@ -23,7 +23,7 @@ body {
 	padding: 2%;
 }
 
-message > p {
+.message {
 	width: 25vw;
 	border-radius: 5px;
 	border-style: none;

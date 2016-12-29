@@ -8,9 +8,6 @@ module.exports = function (grunt) {
 
   var reloadPort = 35729, files;
 
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     develop: {
@@ -51,17 +48,6 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       }
-    },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js'
-      }
-    },
-    jshint: {
-      src: ['public/app/**/*.js'],
-      options : {
-        jshintrc: true
-      }
     }
   });
 
@@ -88,13 +74,4 @@ module.exports = function (grunt) {
     'develop',
     'watch'
   ]);
-
-  grunt.registerTask('analyze', [
-    'jshint'
-  ]);
-
-  grunt.registerTask('test', [
-    'karma'
-  ]);
-
 };
