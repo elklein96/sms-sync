@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SmsSync">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <title>SMSSync</title>
+</head>
+
+<body ng-controller="SMSController as vm">
+    <div id="wrapper">
+        <div id="sidebar-wrapper" class="side-nav fixed">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">SMSSync</a></li>
+                <contact ng-repeat="contact in contacts" info="contact" selected="$parent.selected"/>
+            </ul>
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 text-center">
+                        <h1 id="recipient">Send a message!</h1>
+                        <div id="chat-wrapper">
+                            <message ng-hide="(vm.selected.name === undefined)" ng-repeat="msg in messages" msg="msg"/>
+                        </div>
+                        <input id="message-input" ng-model="message" type="text" ng-keyup="$event.keyCode==13 && sendMessage()" placeholder="Message" class="form-control">
+                        <button id="send" ng-click="sendMessage()" class="btn btn-success btn-lg">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script>window.jQuery = window.$ = module.exports;</script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+<script>
+    var config = {
+        databaseURL: "https://sms-sync-89b46.firebaseio.com",
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.min.js"></script>
+<script src="app/app.js"></script>
+<script src="app/features/messages/message.directive.js"></script>
+<script src="app/features/sidebar/contact.directive.js"></script>
+<script src="app/core/core.module.js"></script>
+<script src="app/core/firebaseData.service.js"></script>
+<script src="app/core/sms.service.js"></script>
+<script src="app/features/app.controller.js"></script>
+
+</html>
