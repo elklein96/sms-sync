@@ -1,5 +1,4 @@
 (function() {
-  'use strict';
-
-  angular.module('SmsSync.core', []);
+	'use strict';
+	angular.module('SmsSync.core', []);
 })();

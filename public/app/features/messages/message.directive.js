@@ -5,14 +5,11 @@
         .module('SmsSync')
         .directive('message', message);
 
-    message.$inject = ['$rootScope'];
-
-    /* @ngInject */
-    function message($rootScope) {
+    function message() {
         return {
             restrict: 'E',
             scope: {
-            	msg: '=msg'
+            	msg: '&msg'
             },
             templateUrl: 'app/features/messages/message.html',
             link: function(scope, element, attrs) {

@@ -13,6 +13,25 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['src/**/*.js'],
+        dest: 'dist/com.smssync.elkdev.js'
+      }
+    },
+    uglify: {
+      options: {
+        banner: '/*! com.smssync.elkdev */\n'
+      },
+      dist: {
+        files: {
+          'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+        }
+      }
+    },
     develop: {
       server: {
         file: 'app.js'

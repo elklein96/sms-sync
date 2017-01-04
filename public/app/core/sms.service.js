@@ -7,7 +7,6 @@
 
         smsService.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseDataService'];
 
-
         function smsService($firebaseArray, $firebaseObject, firebaseDataService) {
         	var service = {
 	    		getContacts: getContacts,
@@ -18,25 +17,28 @@
 	    	return service;
 
 	        function getContacts() {
-	        	var contacts = [];
-	        	var msg = $firebaseArray(firebaseDataService.messages);
-
-	        	console.log(msg);
-
-	        	for (var key in msg) {
-		        	console.log(key);
-		            // contacts.push(key);
-		        }
-	        	
+	        	var contacts = $firebaseArray(firebaseDataService.messages);
 	        	return contacts;
 	        }
 
-	        function startMsgListener() {
-	        	return ["Message 1", "Message 2", "Message 3"];
+	        function startMsgListener(scope) {
+	        	var obj = $firebaseObject(firebaseDataService.messages);
+	        	obj.$bindTo(scope, 'messages');
 	        }
 
-	        function sendMessage() {
-	        	return "Message sent!";
+	        function sendMessage(content, recipientName, recipientNum) {
+	        	var msgData = {
+		            content: content,
+		            recipientNum: recipientNum
+		        };
+
+	        	var msg = $firebaseArray(firebaseDataService.messages.child(recipientName));
+	        	msg.$add(msgData);
+
+	        	var lastMsgContent = $firebaseObject(firebaseDataService.lastMsg);
+	        	lastMsgContent.content = content;
+	        	lastMsgContent.recipientNum = recipientNum;
+	        	lastMsgContent.$save();
 	        }
         }
 })();

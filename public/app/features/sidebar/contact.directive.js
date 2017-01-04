@@ -5,17 +5,20 @@
         .module('SmsSync')
         .directive('contact', contact);
 
-    contact.$inject = ['$rootScope'];
-
-    /* @ngInject */
-    function contact($rootScope) {
+    function contact() {
         return {
             restrict: 'E',
             scope: {
-                info: '=info'
+                info: '=info',
+                selected: '='
             },
             templateUrl: 'app/features/sidebar/contact.html',
             link: function(scope, element, attrs) {
+                element.bind('click', function() {
+                    scope.$apply(function() {
+                        scope.selected.name = scope.info.$id;
+                    });
+                });
             }
         };
     }
