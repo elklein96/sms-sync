@@ -28,7 +28,7 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+          'dist/com.smssync.elkdev.min.js': ['dist/dist.js']
         }
       }
     },
