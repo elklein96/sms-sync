@@ -36,11 +36,18 @@
 
         $scope.$watch('unread', function() {
             for (var key in $scope.unread) {
-                if (key[0] !== "$") {
+                if (key[0] !== "$" && key !== $scope.selected.name) {
+                    displayNotification(key, $scope.unread[key].content);
                     $timeout(function() {
                         $('#'+$filter('removeSpacesFilter')(key)).append('<div class="unread"></div>');
                     }, 500);
                 }
+                else if (key === $scope.selected.name) {
+                    smsService.setMessageRead($scope.selected.name);
+                    displayNotification(key, $scope.unread[key].content);
+                }
+                // if app is inactive
+                // new Notification(notification.title, notification);
             }
         });
 
@@ -61,6 +68,17 @@
                 $('#chat-wrapper')[0].scrollTop = $('#chat-wrapper')[0].scrollHeight;
                 $('#send').blur();
             }
+        }
+
+        function displayNotification(title, content) {
+            var notification = {
+                title: "New Message",
+                body: ""
+            }
+
+            notification.title = title;
+            notification.body = content;
+            new Notification(notification.title, notification);
         }
     }
 })();
