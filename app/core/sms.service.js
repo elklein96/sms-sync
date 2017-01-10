@@ -7,11 +7,13 @@
 
         smsService.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseDataService'];
 
+        /* @ngInject */
         function smsService($firebaseArray, $firebaseObject, firebaseDataService) {
         	var service = {
 	    		getContacts: getContacts,
 	    		startMsgListener: startMsgListener,
-	    		sendMessage: sendMessage
+	    		sendMessage: sendMessage,
+	    		setMessageRead: setMessageRead
 	    	};
 
 	    	return service;
@@ -22,11 +24,14 @@
 	        }
 
 	        function startMsgListener(scope) {
-	        	var obj = $firebaseObject(firebaseDataService.messages);
-	        	obj.$bindTo(scope, 'messages');
+	        	var msg = $firebaseObject(firebaseDataService.messages);
+	        	msg.$bindTo(scope, 'messages');
+
+				var unread = $firebaseObject(firebaseDataService.lastReceived);
+	        	unread.$bindTo(scope, 'unread');
 	        }
 
-	        function sendMessage(content, recipientName, recipientNum = '') {
+	        function sendMessage(content, recipientName, recipientNum) {
 	        	var msgData = {
 		            content: content,
 		            recipientNum: recipientNum
@@ -39,6 +44,18 @@
 	        	lastMsgContent.content = content;
 	        	lastMsgContent.recipientNum = recipientNum;
 	        	lastMsgContent.$save();
+	        }
+
+	        function setMessageRead(name) {
+	        	if (name !== undefined) {
+	        		var lastReceived = $firebaseArray(firebaseDataService.lastReceived);
+	        		lastReceived.$loaded(function() {
+	        			var i = lastReceived.$indexFor(name);
+	        			if (i > -1) {
+	        				lastReceived.$remove(i);
+	        			}
+	        		});
+	        	}
 	        }
         }
 })();

@@ -1,48 +1,72 @@
 body {
-	overflow: none;
+	overflow: hidden;
+    min-width: 500px;
 }
 
-#message-input {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 2%;
-	margin-bottom: 2%;
-	width: 50%;
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #f1f1f1;
+    font-weight: normal;
 }
 
 #chat-wrapper {
-	height: 50vh;
-	width: 50vw;
-	text-align: center;
-	margin: auto;
-	overflow-y: scroll;
-	border-radius: 5px;
-	border-color: #a0a0a0;
-	border-style: solid;
-	border-width: 2px;
-	padding: 2%;
+    height: 72vh;
+    overflow-y: scroll;
+    margin: auto;
+    width: 100%;
+    margin-bottom: 5%;
 }
 
-.message {
-	width: 25vw;
-	border-radius: 5px;
-	border-style: none;
-	border-width: 2px;
-	margin-top: 2%;
-	margin-bottom: 2%;
-	text-align: left;
-	padding: 2%;
-	word-wrap: break-word;
+#message-input {
+    width: 100%;
+}
+
+.message-wrapper {
+    width: 100%;
+    display: inline-block;
+}
+
+message {
+    width: 45%;
+    border-radius: 5px;
+    border-style: none;
+    border-width: 2px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: left;
+    padding: 2%;
+    word-wrap: break-word;
 }
 
 .received {
-	background-color: #e0e0e0;
-	float: left;
+    background-color: #e0e0e0;
+    float: left;
 }
 
 .sent {
-	background-color: #3498db;
-	float: right;
+    background-color: #3498db;
+    float: right;
+}
+
+.unread {
+    width: 12px;
+    height: 12px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    background: #ff3019;
+    background: -moz-linear-gradient(top,  #ff3019 0%, #cf0404 100%);
+    background: -webkit-linear-gradient(top,  #ff3019 0%,#cf0404 100%);
+    background: linear-gradient(to bottom,  #ff3019 0%,#cf0404 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
+    display: inline-block;
+    margin-left: 15px;
 }
 
 #wrapper {
@@ -71,9 +95,6 @@ body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     font-weight: normal;
-    /*border-width: 5px;
-    border-color: #e5e5e6;
-    border-right-style: solid;*/
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -81,9 +102,8 @@ body {
 }
 
 #page-content-wrapper {
-    width: 100%;
+    width: 90%;
     position: absolute;
-    padding: 15px;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -160,7 +180,8 @@ body {
     }
 
     #page-content-wrapper {
-        padding: 20px;
+        padding-left: 250px;
+        width: 100%;
         position: relative;
     }
 

@@ -5,10 +5,10 @@
         .module('SmsSync')
         .controller('SMSController', SMSController);
 
-    SMSController.$inject = ['$scope', 'smsService'];
+    SMSController.$inject = ['$scope', '$timeout', '$filter', 'smsService'];
 
     /* @ngInject */
-    function SMSController($scope, smsService){
+    function SMSController($scope, $timeout, $filter, smsService){
     	$scope.selected = {
             name: undefined,
             number: undefined
@@ -17,14 +17,16 @@
         smsService.startMsgListener($scope);
 
     	$scope.sendMessage = function() {
-            if ($scope.selected.name != undefined) {
+            if ($scope.selected.name !== undefined) {
                 smsService.sendMessage($scope.message, $scope.selected.name, $scope.selected.number);
                 $('#message-input').val('');
             }
-        }
+        };
 
         $scope.$watch('selected.name', function() {
             $("#recipient").text($scope.selected.name);
+            smsService.setMessageRead($scope.selected.name);
+            $('#'+$filter('removeSpacesFilter')($scope.selected.name)).find('.unread').remove();
             displayMessage();
         });
 
@@ -32,17 +34,27 @@
             displayMessage();
         });
 
+        $scope.$watch('unread', function() {
+            for (var key in $scope.unread) {
+                if (key[0] !== "$") {
+                    $timeout(function() {
+                        $('#'+$filter('removeSpacesFilter')(key)).append('<div class="unread"></div>');
+                    }, 500);
+                }
+            }
+        });
+
         function displayMessage() {
             var messageStr;
             $('#chat-wrapper').empty();
-            if ($scope.selected.name != undefined) {
+            if ($scope.selected.name !== undefined) {
                 var data = $scope.messages[$scope.selected.name];
                 for (var i in data) {
                     if (data[i].recipientNum === "") {
-                        messageStr = '<p class="message received">' + data[i].content + '</p><br>';
+                        messageStr = '<div class="message-wrapper"><message class="received">' + data[i].content + '</message></div><br>';
                     } else {
                         $scope.selected.number = data[i].recipientNum; 
-                        messageStr = '<p class="message sent">' + data[i].content + '</p><br>';
+                        messageStr = '<div class="message-wrapper"><message class="sent">' + data[i].content + '</message></div><br>';
                     }
                     $('#chat-wrapper').append(messageStr);
                 }
