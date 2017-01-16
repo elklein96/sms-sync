@@ -21,9 +21,6 @@
             <div id="sidebar-wrapper" class="side-nav fixed">
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
-                        <!--<select id="contact-select" class="form-control" ng-model="selected.name">
-                          <option ng-repeat="contact in contacts" value="{{contact.$id}}">{{contact.$id}}</option>
-                        </select>-->
                         <auto-complete id="contact-select" data="contacts" selected="selected" placeholder="Search Contacts"></auto-complete>
                     </li>
                     <contact ng-repeat="contact in conversations" info="contact" selected="selected" unread="unread"/>
@@ -58,7 +55,10 @@
 </body>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script>window.jQuery = window.$ = module.exports;</script>
+<script>
+    window.jQuery = window.$ = module.exports;
+    window.app = require('electron');
+</script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/firebase/firebase.js"></script>
 <script src="bower_components/angularfire/dist/angularfire.min.js"></script>

@@ -16,6 +16,7 @@
         $scope.selectedMessages = undefined;
         $scope.contacts = smsService.getContacts();
         $scope.conversations = smsService.getConversations();
+        $scope.focused = false;
         smsService.startMsgListener($scope);
 
     	$scope.sendMessage = function() {
@@ -29,6 +30,7 @@
             $scope.contacts.$loaded(function() {
                 var contact = $scope.contacts[$scope.contacts.$indexFor($scope.selected.name)];
                 if ($scope.selected.name !== undefined && contact !== undefined) {
+                    app.ipcRenderer.send('hide-notification', '');
                     smsService.setMessageRead($scope.selected.name);
                     $scope.selected.number = $filter('phoneNumberFilter')(contact.$value);
                     $scope.selectedMessages = $scope.messages[$scope.selected.name];
@@ -44,11 +46,19 @@
         $scope.$watch('unread', function() {
             for (var key in $scope.unread) {
                 if (key[0] !== "$") {
-                    displayNotification(key, $scope.unread[key].content);
-                    if ($scope.selected.name === key)
+                    if (!$scope.focused) {
+                        displayNotification(key, $scope.unread[key].content);
+                    }
+                    if ($scope.selected.name === key){
+                        app.ipcRenderer.send('hide-notification', '');
                         smsService.setMessageRead($scope.selected.name);
+                    }
                 }
             }
+        });
+
+        app.ipcRenderer.on('window-state', function(event, data) {
+            (data === "focus") ? $scope.focused = true : $scope.focused = false;
         });
         
         function displayNotification(title, content) {
@@ -56,7 +66,7 @@
                 title: "New Message",
                 body: ""
             }
-
+            app.ipcRenderer.send('show-notification', '');
             notification.title = title;
             notification.body = content;
             new Notification(notification.title, notification);
