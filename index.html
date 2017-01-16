@@ -63,10 +63,11 @@
 <script src="bower_components/firebase/firebase.js"></script>
 <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
 <script>
-    var config = {
-        databaseURL: "https://sms-sync-89b46.firebaseio.com",
+    var smconfig = require('./config');
+    var fbconfig = {
+        databaseURL: smconfig.getFirebaseApp(),
     };
-    firebase.initializeApp(config);
+    firebase.initializeApp(fbconfig);
 </script>
 
 <script src="app/app.js"></script>
