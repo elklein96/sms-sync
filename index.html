@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 
@@ -19,19 +20,38 @@
         <div id="wrapper">
             <div id="sidebar-wrapper" class="side-nav fixed">
                 <ul class="sidebar-nav">
-                    <li class="sidebar-brand"><a href="#">SMSSync</a></li>
-                    <contact ng-repeat="contact in contacts" info="contact" selected="$parent.selected" unread="$parent.isUnread"/>
+                    <li class="sidebar-brand">
+                        <!--<select id="contact-select" class="form-control" ng-model="selected.name">
+                          <option ng-repeat="contact in contacts" value="{{contact.$id}}">{{contact.$id}}</option>
+                        </select>-->
+                        <auto-complete id="contact-select" data="contacts" selected="selected" placeholder="Search Contacts"></auto-complete>
+                    </li>
+                    <contact ng-repeat="contact in conversations" info="contact" selected="selected" unread="unread"/>
                 </ul>
             </div>
         </div>
         <div id="page-content-wrapper">
-            <div class="text-center">
-                    <h1 id="recipient">Send a message!</h1>
-                    <div id="chat-wrapper">
-                        <message ng-hide="(vm.selected.name === undefined)" ng-repeat="msg in messages" msg="msg"/>
+            <nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
+                <div class="nav-container">
+                    <div class="text-center">
+                        <ul class="nav">
+                            <li class="hidden">
+                                <a href="#page-top"></a>
+                            </li>
+                            <li id="recipient-container">
+                                <p ng-hide="(selected.name === undefined)" id="recipient">{{selected.name}}</p>
+                            </li>
+                            <li id="search-container">
+                                <auto-complete id="contact-select" data="contacts" selected="selected" placeholder="Search Contacts"></auto-complete>
+                            </li>
+                        </ul>
                     </div>
+                </div>
+            </nav>
+
+            <div class="text-center">
+                    <message-wrapper messages="selectedMessages"></message-wrapper>
                     <textarea id="message-input" ng-model="message" ng-keyup="$event.keyCode==13 && sendMessage()" placeholder="Message" class="form-control"></textarea>
-                    <!--<button id="send" ng-click="sendMessage()" class="btn btn-success btn-lg">Send</button>-->
             </div>
         </div>
     </div>
@@ -48,13 +68,17 @@
     };
     firebase.initializeApp(config);
 </script>
+
 <script src="app/app.js"></script>
 <script src="app/core/core.module.js"></script>
 <script src="app/core/firebaseData.service.js"></script>
 <script src="app/core/sms.service.js"></script>
 <script src="app/core/removeSpaces.filter.js"></script>
+<script src="app/core/phoneNumber.filter.js"></script>
 <script src="app/features/messages/message.directive.js"></script>
+<script src="app/features/messages/messageWrapper.directive.js"></script>
 <script src="app/features/sidebar/contact.directive.js"></script>
+<script src="app/features/sidebar/autoComplete.directive.js"></script>
 <script src="app/features/app.controller.js"></script>
 
 </html>

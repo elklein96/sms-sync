@@ -11,6 +11,7 @@
         function smsService($firebaseArray, $firebaseObject, firebaseDataService) {
         	var service = {
 	    		getContacts: getContacts,
+	    		getConversations: getConversations,
 	    		startMsgListener: startMsgListener,
 	    		sendMessage: sendMessage,
 	    		setMessageRead: setMessageRead
@@ -19,8 +20,13 @@
 	    	return service;
 
 	        function getContacts() {
-	        	var contacts = $firebaseArray(firebaseDataService.messages);
+	        	var contacts = $firebaseArray(firebaseDataService.contacts);
 	        	return contacts;
+	        }
+
+	        function getConversations() {
+	        	var conversations = $firebaseArray(firebaseDataService.messages);
+	        	return conversations;
 	        }
 
 	        function startMsgListener(scope) {
@@ -51,9 +57,8 @@
 	        		var lastReceived = $firebaseArray(firebaseDataService.lastReceived);
 	        		lastReceived.$loaded(function() {
 	        			var i = lastReceived.$indexFor(name);
-	        			if (i > -1) {
+	        			if (i > -1)
 	        				lastReceived.$remove(i);
-	        			}
 	        		});
 	        	}
 	        }

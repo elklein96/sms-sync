@@ -5,15 +5,17 @@
         .module('SmsSync')
         .controller('SMSController', SMSController);
 
-    SMSController.$inject = ['$scope', '$timeout', '$filter', 'smsService'];
+    SMSController.$inject = ['$scope', '$filter', 'smsService'];
 
     /* @ngInject */
-    function SMSController($scope, $timeout, $filter, smsService){
+    function SMSController($scope, $filter, smsService) {
     	$scope.selected = {
             name: undefined,
             number: undefined
         };
+        $scope.selectedMessages = undefined;
         $scope.contacts = smsService.getContacts();
+        $scope.conversations = smsService.getConversations();
         smsService.startMsgListener($scope);
 
     	$scope.sendMessage = function() {
@@ -24,52 +26,31 @@
         };
 
         $scope.$watch('selected.name', function() {
-            $("#recipient").text($scope.selected.name);
-            smsService.setMessageRead($scope.selected.name);
-            $('#'+$filter('removeSpacesFilter')($scope.selected.name)).find('.unread').remove();
-            displayMessage();
+            $scope.contacts.$loaded(function() {
+                var contact = $scope.contacts[$scope.contacts.$indexFor($scope.selected.name)];
+                if ($scope.selected.name !== undefined && contact !== undefined) {
+                    smsService.setMessageRead($scope.selected.name);
+                    $scope.selected.number = $filter('phoneNumberFilter')(contact.$value);
+                    $scope.selectedMessages = $scope.messages[$scope.selected.name];
+                }
+            });
         });
 
         $scope.$watch('messages', function() {
-            displayMessage();
+            if ($scope.selected.name !== undefined)
+                $scope.selectedMessages = $scope.messages[$scope.selected.name];
         });
 
         $scope.$watch('unread', function() {
             for (var key in $scope.unread) {
-                if (key[0] !== "$" && key !== $scope.selected.name) {
+                if (key[0] !== "$") {
                     displayNotification(key, $scope.unread[key].content);
-                    $timeout(function() {
-                        $('#'+$filter('removeSpacesFilter')(key)).append('<div class="unread"></div>');
-                    }, 500);
+                    if ($scope.selected.name === key)
+                        smsService.setMessageRead($scope.selected.name);
                 }
-                else if (key === $scope.selected.name) {
-                    smsService.setMessageRead($scope.selected.name);
-                    displayNotification(key, $scope.unread[key].content);
-                }
-                // if app is inactive
-                // new Notification(notification.title, notification);
             }
         });
-
-        function displayMessage() {
-            var messageStr;
-            $('#chat-wrapper').empty();
-            if ($scope.selected.name !== undefined) {
-                var data = $scope.messages[$scope.selected.name];
-                for (var i in data) {
-                    if (data[i].recipientNum === "") {
-                        messageStr = '<div class="message-wrapper"><message class="received">' + data[i].content + '</message></div><br>';
-                    } else {
-                        $scope.selected.number = data[i].recipientNum; 
-                        messageStr = '<div class="message-wrapper"><message class="sent">' + data[i].content + '</message></div><br>';
-                    }
-                    $('#chat-wrapper').append(messageStr);
-                }
-                $('#chat-wrapper')[0].scrollTop = $('#chat-wrapper')[0].scrollHeight;
-                $('#send').blur();
-            }
-        }
-
+        
         function displayNotification(title, content) {
             var notification = {
                 title: "New Message",

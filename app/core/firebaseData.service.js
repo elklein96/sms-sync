@@ -12,7 +12,8 @@
             root: root,
             lastMsg: root.child('last-message'),
             lastReceived: root.child('last-received'),
-            messages: root.child('messages')
+            messages: root.child('messages'),
+            contacts: root.child('contacts')
         };
 
         return service;

@@ -3,6 +3,69 @@ body {
     min-width: 500px;
 }
 
+.navbar-fixed-top {
+    left: 0px;
+}
+
+.navbar-default {
+    background-color: #f1f1f1;
+    height: 60px;
+}
+
+#search-container {
+    line-height: 60px;
+    display: inline-block;
+}
+
+#contact-select {
+    width: 90vw;
+    display: inline-block;
+}
+
+#recipient-container {
+    display: none;
+}
+
+#auto-complete-container {
+    z-index: 600;
+    position: absolute;
+    left: 0;
+    overflow-y: scroll;
+    height: 60vh;
+    width: 100%;
+    text-indent: 0;
+}
+
+#auto-complete-container > ul {
+    padding: 0;
+    width: 230px;
+    margin: auto;
+}
+
+.autocomplete-choice {
+    text-decoration: none;
+    list-style: none;
+    background-color: #fff;
+    border-bottom: solid 1px;
+    border-right: solid 1px;
+    border-left: solid 1px;
+    border-color: #e5e5e6;
+    text-indent: 0px !important;
+    padding: 5px;
+    margin: 0;
+}
+
+.autocomplete-choice-hover,
+.autocomplete-choice:hover {
+    background-color: #f1f1f1;
+    color: #2085b9;
+    cursor: pointer;
+}
+
+.autocomplete-choice > p {
+    font-size: 14px;
+}
+
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -15,15 +78,18 @@ body {
     font-weight: normal;
 }
 
-#chat-wrapper {
-    height: 72vh;
+message-wrapper {
+    height: 77vh;
     overflow-y: scroll;
     margin: auto;
     width: 100%;
-    margin-bottom: 5%;
+    margin-top: 60px;
+    margin-bottom: 2%;
+    display: block;
 }
 
 #message-input {
+    height: 10vh;
     width: 100%;
 }
 
@@ -33,7 +99,7 @@ body {
 }
 
 message {
-    width: 45%;
+    max-width: 48%;
     border-radius: 5px;
     border-style: none;
     border-width: 2px;
@@ -44,6 +110,11 @@ message {
     word-wrap: break-word;
 }
 
+#recipient {
+    font-size: 18px;
+    line-height: 60px;
+}
+
 .received {
     background-color: #e0e0e0;
     float: left;
@@ -52,6 +123,12 @@ message {
 .sent {
     background-color: #3498db;
     float: right;
+}
+
+.selected {
+    text-decoration: none;
+    color: #2085b9;
+    background: #fdfefe;
 }
 
 .unread {
@@ -95,6 +172,8 @@ message {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     font-weight: normal;
+    border-right: solid 1px;
+    border-color: #e7e7e7;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -129,9 +208,8 @@ message {
     display: block;
     text-decoration: none;
     color: #393939;
-    border-width: 1px;
+    border-bottom: solid 1px;
     border-color: #e5e5e6;
-    border-bottom-style: solid;
     padding: 0 !important;
 }
 
@@ -150,7 +228,8 @@ message {
 .sidebar-nav > .sidebar-brand {
     font-size: 18px;
     line-height: 60px;
-    font-weight: bold !important;
+    border-bottom: solid 1px;
+    border-color: #e7e7e7;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -163,6 +242,23 @@ message {
 }
 
 @media(min-width:768px) {
+    .navbar-fixed-top {
+        left: 250px;
+    }
+
+    #search-container {
+        display: none;
+    }
+
+    #contact-select {
+        width: 80%;
+        display: inline-block;
+    }
+
+    #recipient-container {
+        display: inline-block;
+    }
+
     #wrapper {
         padding-left: 250px;
     }
