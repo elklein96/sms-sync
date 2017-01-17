@@ -58,7 +58,7 @@
                             scope.choices.length = 0;
                             if (input.val().length > 0) {
                                 for (var i = 0; i < scope.data.length; i++) {
-                                    if (scope.data.$keyAt(i).includes(input.val()))
+                                    if (scope.data.$keyAt(i).includes(input.val()) && scope.choices.length < 5)
                                         scope.choices.push(scope.data.$keyAt(i));
                                 }
                             }

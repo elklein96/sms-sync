@@ -36,7 +36,9 @@
                                 <a href="#page-top"></a>
                             </li>
                             <li id="recipient-container">
-                                <p ng-hide="(selected.name === undefined)" id="recipient">{{selected.name}}</p>
+                                <p ng-hide="(selected.name === undefined)" id="recipient-name">{{selected.name}}</p>
+                                <p ng-hide="(selected.name === undefined)" id="recipient-num">{{selected.number}}</p>
+
                             </li>
                             <li id="search-container">
                                 <auto-complete id="contact-select" data="contacts" selected="selected" placeholder="Search Contacts"></auto-complete>
@@ -45,11 +47,10 @@
                     </div>
                 </div>
             </nav>
-
-            <div class="text-center">
-                    <message-wrapper messages="selectedMessages"></message-wrapper>
-                    <textarea id="message-input" ng-model="message" ng-keyup="$event.keyCode==13 && sendMessage()" placeholder="Message" class="form-control"></textarea>
-            </div>
+            <message-wrapper messages="selectedMessages"></message-wrapper>
+            <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-nav">
+                <textarea id="message-input" ng-model="message" ng-keyup="$event.keyCode==13 && sendMessage()" placeholder="Message" class="form-control"></textarea>
+            </nav>
         </div>
     </div>
 </body>
