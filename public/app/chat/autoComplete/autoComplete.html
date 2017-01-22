@@ -1,0 +1,8 @@
+<input placeholder="Search Contacts" class="form-control"/>
+<div ng-hide="(choices.length === 0)" id="auto-complete-container">
+	<ul>
+        <li class="autocomplete-choice" ng-repeat="choice in choices">
+        	<p>{{choice}}</p>
+        </li>
+    </ul>
+</div>

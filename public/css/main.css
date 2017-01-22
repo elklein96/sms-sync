@@ -1,48 +1,187 @@
 body {
-	overflow: none;
+	overflow: hidden;
+    min-width: 500px;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+    width: 100vw !important;
+}
+
+#main-nav {
+    left: 0px;
+}
+
+.navbar-default {
+    background-color: #f1f1f1;
+    height: 61px;
+    border-color: #ccc;
+    box-shadow: 0 4px 6px 0px rgba(0, 0, 0, .10);
+}
+
+#search-container {
+    line-height: 60px;
+    display: inline-block;
+}
+
+#navbar-settings {
+    float: right;
+    margin-top: 10px;
+}
+
+#contact-select {
+    width: 90vw;
+    display: inline-block;
+}
+
+#recipient-container {
+    display: none;
+}
+
+auto-complete > input {
+    border-radius: 2px !important;
+}
+
+#auto-complete-container {
+    z-index: 600;
+    position: absolute;
+    left: 0;
+    overflow-y: scroll;
+    height: 60vh;
+    width: 100%;
+    text-indent: 0;
+}
+
+#auto-complete-container > ul {
+    padding: 0;
+    width: 230px;
+    margin: auto;
+    box-shadow: 0 4px 6px 2px rgba(0, 0, 0, .10);
+    border: 1px solid #ccc;
+    border-color: rgba(0, 0, 0, .15);
+    border-radius: 2px;
+}
+
+.autocomplete-choice {
+    text-decoration: none;
+    list-style: none;
+    background-color: #fff;
+    border-bottom: solid 1px;
+    border-right: solid 1px;
+    border-left: solid 1px;
+    border-color: #ccc;
+    text-indent: 0px !important;
+    padding: 5px;
+    margin: 0;
+}
+
+.autocomplete-choice-hover,
+.autocomplete-choice:hover {
+    background-color: #f1f1f1;
+    color: #2085b9;
+    cursor: pointer;
+}
+
+.autocomplete-choice > p {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #f1f1f1;
+    font-weight: normal;
+}
+
+message-wrapper {
+    overflow-y: scroll;
+    position: fixed;
+    top: 60px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+}
+
+.navbar-fixed-bottom {
+    border: none;
 }
 
 #message-input {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 2%;
-	margin-bottom: 2%;
-	width: 50%;
+    min-height: 100px !important;
+    border-radius: 2px;
+    border-top: solid 1px #ccc;
+    border-right: 0;
+    border-left: 0;
+    resize: none;
 }
 
-#chat-wrapper {
-	height: 50vh;
-	width: 50vw;
-	text-align: center;
-	margin: auto;
-	overflow-y: scroll;
-	border-radius: 5px;
-	border-color: #a0a0a0;
-	border-style: solid;
-	border-width: 2px;
-	padding: 2%;
+.message-wrapper {
+    width: 100%;
+    display: inline-block;
 }
 
-.message {
-	width: 25vw;
-	border-radius: 5px;
-	border-style: none;
-	border-width: 2px;
-	margin-top: 2%;
-	margin-bottom: 2%;
-	text-align: left;
-	padding: 2%;
-	word-wrap: break-word;
+message {
+    max-width: 48%;
+    border-radius: 5px;
+    border-style: none;
+    border-width: 2px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: left;
+    padding: 2%;
+    word-wrap: break-word;
+}
+
+#recipient-name {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+#recipient-num {
+    font-size: 12px;
+    line-height: 12px;
+    color: #777;
 }
 
 .received {
-	background-color: #e0e0e0;
-	float: left;
+    background-color: #e0e0e0;
+    float: left;
+    margin-left: 5%;
 }
 
 .sent {
-	background-color: #3498db;
-	float: right;
+    background-color: #039be5;
+    float: right;
+    color: #fff;
+    margin-right: 5%;
+}
+
+.selected {
+    text-decoration: none;
+    color: #2085b9;
+    background: #fdfefe;
+}
+
+.unread {
+    width: 12px;
+    height: 12px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    background: #ff3019;
+    background: -moz-linear-gradient(top,  #ff3019 0%, #cf0404 100%);
+    background: -webkit-linear-gradient(top,  #ff3019 0%,#cf0404 100%);
+    background: linear-gradient(to bottom,  #ff3019 0%,#cf0404 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
+    display: inline-block;
+    margin-left: 15px;
 }
 
 #wrapper {
@@ -71,9 +210,7 @@ body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     font-weight: normal;
-    /*border-width: 5px;
-    border-color: #e5e5e6;
-    border-right-style: solid;*/
+    border-right: solid 1px #ccc;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -83,7 +220,6 @@ body {
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 15px;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -109,9 +245,8 @@ body {
     display: block;
     text-decoration: none;
     color: #393939;
-    border-width: 1px;
+    border-bottom: solid 1px;
     border-color: #e5e5e6;
-    border-bottom-style: solid;
     padding: 0 !important;
 }
 
@@ -130,7 +265,7 @@ body {
 .sidebar-nav > .sidebar-brand {
     font-size: 18px;
     line-height: 60px;
-    font-weight: bold !important;
+    border-bottom: solid 1px #e5e5e6;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -143,6 +278,28 @@ body {
 }
 
 @media(min-width:768px) {
+    .navbar-fixed-bottom,
+    #main-nav {
+        left: 250px;
+    }
+
+    message-wrapper {
+        left: 250px !important;
+    }
+
+    #search-container {
+        display: none;
+    }
+
+    #contact-select {
+        width: 80%;
+        display: inline-block;
+    }
+
+    #recipient-container {
+        display: inline-block;
+    }
+
     #wrapper {
         padding-left: 250px;
     }
@@ -160,7 +317,8 @@ body {
     }
 
     #page-content-wrapper {
-        padding: 20px;
+        padding-left: 250px;
+        width: 100%;
         position: relative;
     }
 
@@ -168,4 +326,34 @@ body {
         position: relative;
         margin-right: 0;
     }
+}
+
+#settings {
+    margin-top: 150px;
+}
+
+.failure {
+    color: #d9534f;
+}
+
+#db-input {
+    margin-bottom: 10px;
+}
+
+#settings-text {
+    width: 500px;
+    margin: auto;
+    margin-bottom: 10px;
+    height: 200px;
+}
+
+#return-btn {
+    background-color: #039be5;
+    border-color: #039be5;
+    color: #fff;
+}
+
+#return-btn:hover {
+    background-color: #0387c9;
+    border-color: #0387c9;
 }
