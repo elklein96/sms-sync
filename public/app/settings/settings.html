@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default navbar-fixed-top" id="settings-nav">
+    <div class="nav-container">
+        <div class="text-center">
+            <p style="float:none;color:#000;" class="navbar-brand topnav">Settings</p>
+        </div>
+    </div>
+</nav>
+<section id="settings">
+    <div id="settings-text">
+        <p>Database URL: </p>
+        <input id="db-input" ng-model="dbUrl" ng-keyup="$event.keyCode==13 && vm.updateDbUrl()" placeholder="Database URL" class="form-control"></input>
+        <p class="failure" ng-show="failure">Uh oh. Please try again!</p>
+    </div>
+    <div class="text-center">
+        <button type="button" id="return-btn" class="btn" ng-click="vm.loadApp()">Return to App</button>
+    </div>
+</section>
