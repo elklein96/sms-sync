@@ -13,7 +13,6 @@
 
         vm.updateDbUrl = updateDbUrl;
         vm.loadApp = loadApp;
-        $scope.success = undefined;
         $scope.failure = undefined;
 
         activate();
@@ -30,7 +29,6 @@
                 .catch(updateDbError);
 
             function updateDbSuccess() {
-                $scope.success = true;
                 loadApp();
             }
 
