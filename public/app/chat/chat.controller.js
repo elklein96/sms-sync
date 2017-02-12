@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('SmsSync')
+        .module('SmsSync.chat')
         .controller('SMSController', SMSController);
 
     SMSController.$inject = ['$scope', '$filter', '$timeout', '$state', 'smsFactory'];

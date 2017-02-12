@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('SmsSync')
+        .module('SmsSync.settings')
         .controller('SettingsController', SettingsController);
 
     SettingsController.$inject = ['$scope', '$state', 'configFactory'];

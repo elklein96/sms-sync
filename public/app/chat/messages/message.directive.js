@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('SmsSync.messageModule')
+        .module('SmsSync.message')
         .directive('message', message);
         
     function message() {

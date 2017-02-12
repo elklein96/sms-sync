@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-    	.module('SmsSync.contactModule', []);
+    	.module('SmsSync.contact', []);
 })();
