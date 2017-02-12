@@ -30,9 +30,7 @@
                             input.val(angular.element(e.toElement).text());
                             submit(input.val());
                         }
-                        scope.$apply(function() {
-                            scope.choices;
-                        });
+                        scope.$apply(scope.choices);
                     });
 
                     input.bind('keyup', function(e) {
@@ -65,9 +63,7 @@
                                 }
                             }
                         }
-                        scope.$apply(function() {
-                            scope.choices;
-                        });
+                        scope.$apply(scope.choices);
                     });
 
                     function submit(name) {

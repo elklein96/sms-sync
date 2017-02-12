@@ -32,7 +32,7 @@
                 }
 
                 return defer.promise;
-            }
+            };
         }
 
         config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];

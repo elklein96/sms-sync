@@ -26,7 +26,7 @@
 	        	}
 
 	        	function getUrlError(res) {
-	        		console.log("Could not get DB URL")
+	        		console.log("Could not get DB URL");
 	        	}
 	        }
 
@@ -41,15 +41,14 @@
 					$http.put('/config', data)
 		        		.then(setUrlSuccess)
 		        		.catch(setUrlError);
+	        	}
+	        	function setUrlSuccess(res) {
+		        	defer.resolve(res.status);
+	        	}
 
-		        	function setUrlSuccess(res) {
-		        		defer.resolve(res.status);
-		        	}
-
-		        	function setUrlError(res) {
-		        		defer.reject();
-		        		console.log("Could not set DB URL");
-		        	}
+	        	function setUrlError(res) {
+	        		defer.reject();
+	        		console.log("Could not set DB URL");
 	        	}
 	        	return defer.promise;
 	        }

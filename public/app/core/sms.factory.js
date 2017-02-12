@@ -44,8 +44,12 @@
 		            recipientNum: recipientNum
 		        };
 
-	        	var msg = $firebaseArray(firebaseData.messages.child(recipientName));
+		        var msg = $firebaseArray(firebaseData.messages.child(recipientName));
 	        	msg.$add(msgData);
+
+		        if (content.length > 160) {
+		        	// TODO send 160+ char messages as multiple messages
+		        }
 
 	        	var lastMsgContent = $firebaseObject(firebaseData.lastMsg);
 	        	lastMsgContent.content = content;
@@ -54,7 +58,7 @@
 	        }
 
 	        function setMessageRead(name) {
-	        	if (name !== undefined) {
+	        	if (name) {
 	        		var lastReceived = $firebaseArray(firebaseData.lastReceived);
 	        		lastReceived.$loaded(function() {
 	        			var i = lastReceived.$indexFor(name);

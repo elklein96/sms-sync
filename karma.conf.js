@@ -5,11 +5,12 @@ module.exports = function(config) {
     files: [
         'public/bower_components/angular/angular.min.js',
         'public/bower_components/angular-mocks/angular-mocks.js',
-        'public/bower_components/angular-route/angular-route.min.js',
+        'public/bower_components/angular-ui-router/release/angular-ui-router.min.js',
         'public/app/app.js',
         'public/app/**/*.module.js',
         'public/app/**/*.controller.js',
         'public/app/**/*.directive.js',
+        'public/app/**/*.factory.js',
         'public/app/**/*.spec.js',
     ],
     exclude: [

@@ -163,6 +163,14 @@ message {
     margin-right: 5%;
 }
 
+.sent > a {
+    color: #fff !important;
+}
+
+.received > a {
+    color: #000 !important;
+}
+
 .selected {
     text-decoration: none;
     color: #2085b9;

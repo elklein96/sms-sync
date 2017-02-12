@@ -18,8 +18,8 @@
                             <a href="#page-top"></a>
                         </li>
                         <li id="recipient-container">
-                            <p ng-hide="(selected.name === undefined)" id="recipient-name">{{selected.name}}</p>
-                            <p ng-hide="(selected.name === undefined)" id="recipient-num">{{selected.number}}</p>
+                            <p ng-show="(selected.name)" id="recipient-name">{{selected.name}}</p>
+                            <p ng-show="(selected.number)" id="recipient-num">{{selected.number}}</p>
 
                         </li>
                         <li id="search-container">
