@@ -33,9 +33,9 @@
     	function sendMessage() {
             if ($scope.selected.name) {
                 smsFactory.sendMessage($scope.message, $scope.selected.name, $scope.selected.number);
-                $('#message-input').val('');
+                $scope.message = '';
             }
-        };
+        }
 
         function loadSettings() {
             $state.go('settings');

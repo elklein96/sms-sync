@@ -5,9 +5,9 @@
         .module('SmsSync.messageModule')
         .directive('messageWrapper', messageWrapper);
         
-    messageWrapper.$inject = ['$compile'];
+    messageWrapper.$inject = ['$compile', '$filter'];
 
-    function messageWrapper($compile) {
+    function messageWrapper($compile, $filter) {
         return {
             restrict: 'E',
             scope: {
@@ -15,15 +15,16 @@
             },
             link: function(scope, element, attrs) {
                 scope.$watch('messages', function() {
-                    var messageStr;
+                    var messageDom, messageContent;
                     element.empty();
                     for (var i in scope.messages) {
+                        messageContent = $filter('formatMessageFilter')(scope.messages[i].content);
                         if (scope.messages[i].recipientNum === "") {
-                            messageStr = '<div class="message-wrapper"><message class="received">' + scope.messages[i].content + '</message></div><br>';
+                            messageDom = '<div class="message-wrapper"><message class="received">' + messageContent + '</message></div><br>';
                         } else {
-                            messageStr = '<div class="message-wrapper"><message class="sent">' + scope.messages[i].content + '</message></div><br>';
+                            messageDom = '<div class="message-wrapper"><message class="sent">' + messageContent + '</message></div><br>';
                         }
-                        element.append(messageStr);
+                        element.append(messageDom);
                     }
                     element.scrollTop(element.prop("scrollHeight"));
                 });
