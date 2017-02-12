@@ -5,9 +5,8 @@
         .module('SmsSync', ['firebase',
                             'ui.router',
                             'SmsSync.core',
-                            'SmsSync.messageModule',
-                            'SmsSync.contactModule',
-                            'SmsSync.autoComplete'])
+                            'SmsSync.chat',
+                            'SmsSync.settings'])
 
         .factory('configInterceptor', configInterceptor)
         .config(config);

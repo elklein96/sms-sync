@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('SmsSync.contactModule')
+        .module('SmsSync.contact')
         .directive('contact', contact);
 
         contact.$inject = ['$timeout', '$filter'];
