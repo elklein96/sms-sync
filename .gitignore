@@ -49,3 +49,6 @@ public/bower_components
 
 # Build files
 dist
+
+# Editor configs
+.vscode
