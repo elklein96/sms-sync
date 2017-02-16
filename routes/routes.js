@@ -6,7 +6,7 @@ exports.getDB = function(req, res, next) {
         if (err) {
             res.status(500);
             res.send();
-            next();
+            return next();
         }
         config = JSON.parse(data);
         firebaseURL = config.firebaseURL;
@@ -17,6 +17,7 @@ exports.getDB = function(req, res, next) {
             res.status(400);
             res.send("No FirebaseDB provided");
         }
+        return next();
     });
 };
 
@@ -31,9 +32,10 @@ exports.setDB = function(req, res, next) {
         if (err){
             res.status(500);
             res.send();
-            next();
+            return next();
         }
         res.status(200);
         res.send();
+        return next();
     });
 };
