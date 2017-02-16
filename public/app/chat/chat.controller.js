@@ -9,7 +9,7 @@
 
     /* @ngInject */
     function SMSController($scope, $filter, $timeout, $state, smsFactory) {
-    	var vm = this;
+        var vm = this;
 
         vm.selectedMessages = undefined;
         vm.sendMessage = sendMessage;
@@ -30,7 +30,7 @@
             smsFactory.startMsgListener($scope);
         }
 
-    	function sendMessage() {
+        function sendMessage() {
             if ($scope.selected.name) {
                 smsFactory.sendMessage($scope.message, $scope.selected.name, $scope.selected.number);
                 $scope.message = '';

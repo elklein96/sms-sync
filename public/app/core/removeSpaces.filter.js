@@ -6,11 +6,11 @@
         .filter('removeSpacesFilter', removeSpaces);
 
         function removeSpaces() {
-        	return function(string) {
-		        if (!angular.isString(string)) {
-		            return string;
-		        }
-		        return string.replace(/[\s]/g, '');
-		    };
+            return function(string) {
+                if (!angular.isString(string)) {
+                    return string;
+                }
+                return string.replace(/[\s]/g, '');
+            };
         }
 })();

@@ -11,7 +11,7 @@
         return {
             restrict: 'E',
             scope: {
-            	messages: '='
+                messages: '='
             },
             link: function(scope, element, attrs) {
                 scope.$watch('messages', function() {

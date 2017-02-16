@@ -9,7 +9,7 @@
         return {
             restrict: 'E',
             scope: {
-            	msg: '=msg',
+                msg: '=msg',
                 sent: '=sent'
             },
             templateUrl: 'app/chat/messages/message.html',

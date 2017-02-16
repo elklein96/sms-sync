@@ -9,76 +9,76 @@
 
         /* @ngInject */
         function smsFactory($firebaseArray, $firebaseObject, firebaseData) {
-        	var service = {
-	    		getContacts: getContacts,
-	    		getConversations: getConversations,
-	    		startMsgListener: startMsgListener,
-	    		sendMessage: sendMessage,
-	    		setMessageRead: setMessageRead,
-	    		isNewContact: isNewContact
-	    	};
+            var service = {
+                getContacts: getContacts,
+                getConversations: getConversations,
+                startMsgListener: startMsgListener,
+                sendMessage: sendMessage,
+                setMessageRead: setMessageRead,
+                isNewContact: isNewContact
+            };
 
-	    	return service;
+            return service;
 
-	        function getContacts() {
-	        	var contacts = $firebaseArray(firebaseData.contacts);
-	        	return contacts;
-	        }
+            function getContacts() {
+                var contacts = $firebaseArray(firebaseData.contacts);
+                return contacts;
+            }
 
-	        function getConversations() {
-	        	var conversations = $firebaseArray(firebaseData.messages);
-	        	return conversations;
-	        }
+            function getConversations() {
+                var conversations = $firebaseArray(firebaseData.messages);
+                return conversations;
+            }
 
-	        function startMsgListener(scope) {
-	        	var msg = $firebaseObject(firebaseData.messages);
-	        	msg.$bindTo(scope, 'messages');
+            function startMsgListener(scope) {
+                var msg = $firebaseObject(firebaseData.messages);
+                msg.$bindTo(scope, 'messages');
 
-				var unread = $firebaseObject(firebaseData.lastReceived);
-	        	unread.$bindTo(scope, 'unread');
-	        }
+                var unread = $firebaseObject(firebaseData.lastReceived);
+                unread.$bindTo(scope, 'unread');
+            }
 
-	        function sendMessage(content, recipientName, recipientNum) {
-	        	var msgData = {
-		            content: content,
-		            recipientNum: recipientNum
-		        };
+            function sendMessage(content, recipientName, recipientNum) {
+                var msgData = {
+                    content: content,
+                    recipientNum: recipientNum
+                };
 
-		        var msg = $firebaseArray(firebaseData.messages.child(recipientName));
-	        	msg.$add(msgData);
+                var msg = $firebaseArray(firebaseData.messages.child(recipientName));
+                msg.$add(msgData);
 
-		        if (content.length > 160) {
-		        	// TODO send 160+ char messages as multiple messages
-		        }
+                if (content.length > 160) {
+                    // TODO send 160+ char messages as multiple messages
+                }
 
-	        	var lastMsgContent = $firebaseObject(firebaseData.lastMsg);
-	        	lastMsgContent.content = content;
-	        	lastMsgContent.recipientNum = recipientNum;
-	        	lastMsgContent.$save();
-	        }
+                var lastMsgContent = $firebaseObject(firebaseData.lastMsg);
+                lastMsgContent.content = content;
+                lastMsgContent.recipientNum = recipientNum;
+                lastMsgContent.$save();
+            }
 
-	        function setMessageRead(name) {
-	        	if (name) {
-	        		var lastReceived = $firebaseArray(firebaseData.lastReceived);
-	        		lastReceived.$loaded(function() {
-	        			var i = lastReceived.$indexFor(name);
-	        			if (i > -1)
-	        				lastReceived.$remove(i);
-	        		});
-	        	}
-	        }
+            function setMessageRead(name) {
+                if (name) {
+                    var lastReceived = $firebaseArray(firebaseData.lastReceived);
+                    lastReceived.$loaded(function() {
+                        var i = lastReceived.$indexFor(name);
+                        if (i > -1)
+                            lastReceived.$remove(i);
+                    });
+                }
+            }
 
-	        function isNewContact(convos, contact) {
-	        	var isNew = true;
+            function isNewContact(convos, contact) {
+                var isNew = true;
 
-	        	for (var i = 0; i < convos.length; i++) {
-	        		if (convos.$keyAt(i) === contact){
-	        			isNew = false;
-	        			break;
-	        		}
-	        	}
+                for (var i = 0; i < convos.length; i++) {
+                    if (convos.$keyAt(i) === contact){
+                        isNew = false;
+                        break;
+                    }
+                }
 
-	        	return isNew;
-	        }
+                return isNew;
+            }
         }
 })();
